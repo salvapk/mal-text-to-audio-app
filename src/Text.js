@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Button, Spinner} from 'reactstrap';
+import { Container, Row, Col, Button, Spinner, Input} from 'reactstrap';
 //import ReactAudioPlayer from 'react-audio-player';
 //import { Link } from 'react-router-dom';
 //import { FaCirclePlay } from "react-icons/fa6";
@@ -7,7 +7,7 @@ import './Text.css';
 
 function Text() {
   const myStyle = {
-    backgroundImage: "url('./bg_chat.png')",
+    backgroundImage: "url('./bluebg.jpg')",
     height: "100%",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
@@ -15,6 +15,7 @@ function Text() {
   const [text, setText] = useState('');
   const [isPlaying, setIsPlaying] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('option1');
 
   const handleInputChange = (e) => {
     setText(e.target.value);
@@ -45,18 +46,42 @@ function Text() {
 
 };
 
+  const handleRadioChange = (e) => {
+    setSelectedOption(e.target.value);
+};
+
   return (
     <Container className='text-page' style={myStyle}>
       <Row className="mt-3">
         <Col className='text-center'>
           <div className='text-field d-flex flex-row'>
-            <textarea 
-            className='me-4'
-              cols={50} 
-              rows={20} 
-              value={text}
-              onChange={handleInputChange}
+            <div>
+              <textarea 
+                className='me-4'
+                cols={50} 
+                rows={20} 
+                value={text}
+                onChange={handleInputChange}
               />
+              <div>
+                <Input
+                  type="radio"
+                  name="radioOption"
+                  value="option1"
+                  checked={selectedOption === 'option1'}
+                  onChange={handleRadioChange}
+                />{' '}
+                vits
+                <Input
+                  type="radio"
+                  name="radioOption"
+                  value="option2"
+                  checked={selectedOption === 'option2'}
+                  onChange={handleRadioChange}
+                />{' '}
+                gtts
+              </div>
+            </div>
               <div className='btn'>
                 <Button color='primary' onClick={handlePlayButtonClick}>
                   {loading ? (
@@ -66,7 +91,7 @@ function Text() {
                   )} 
                 </Button>
                 {isPlaying && (<Button 
-                  className='btn btn-primary' 
+                  className='btn ' 
                   color='primary' 
                   onClick={handleButtonClick}>
                   Play Audio
